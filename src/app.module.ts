@@ -3,15 +3,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AdminController } from './admin/admin.controller';
 import { AdminService } from './admin/admin.service';
-import { EditorController } from './editor/editor.controller';
-import { EditorService } from './editor/editor.service';
-import { EditorModule } from './editor/editor.module';
+import { ContainerModule } from './container/container.module';
+
+
+
 
 
 
 @Module({
-  imports: [EditorModule],
-  controllers: [AppController, AdminController, EditorController],
-  providers: [AppService, AdminService, EditorService ]
+  imports: [ContainerModule],
+  controllers: [AppController, AdminController],
+  providers: [AppService, AdminService]
 })
 export class AppModule {}
