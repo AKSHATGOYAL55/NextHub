@@ -4,19 +4,19 @@ import { StudentClassDTO } from './dto/student-create.dto';
 
 @Injectable()
 export class StudentService {
-    private student : student [] = []
+    private students : student [] = []
 
     getAllstudent() : student[]{
-        return this.student;
+        return this.students;
     }
 
     addStudent(StudentClassDTO : StudentClassDTO) : 
     student{
         const newStudent : student ={
             id : Date.now(),
-            ...StudentClassDTO
+            ...StudentClassDTO,
         };
-        this.student.push(newStudent)
+        this.students.push(newStudent)
         return newStudent;
     }
 }
