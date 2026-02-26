@@ -7,6 +7,7 @@ import { AdminService } from './admin/admin.service';
 import { EmployeeModule } from './employee/employee.module';
 import { StudentModule } from './student/student.module';
 import { ProductController } from './product/product.controller';
+import { UserRolesController } from './user-roles/user-roles.controller';
 
 
 
@@ -15,7 +16,7 @@ import { ProductController } from './product/product.controller';
 
 @Module({
   imports: [ EmployeeModule, StudentModule],
-  controllers: [AppController, AdminController, ProductController],
+  controllers: [AppController, AdminController, ProductController, UserRolesController],
   providers: [AppService, AdminService]
 })
 export class AppModule {}
