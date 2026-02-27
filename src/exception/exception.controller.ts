@@ -3,9 +3,10 @@ import { HttpExceptionFilter } from '../filter/http-exception/http-exception.fil
 
 @Controller('exception')
 @UseFilters(HttpExceptionFilter)
+
 export class ExceptionController {
-    @Get("hello/:id")
-    getHello(@Param("id", ParseIntPipe) id : number){
-        return {message : `hello your id is ${id}`}
-    }
+   @Get("yello/:id")
+   getHello(@Param("id", ParseIntPipe) id : number){
+    return {message : `hello your id will be ${id}`}
+   }
 }
