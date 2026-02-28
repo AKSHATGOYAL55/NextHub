@@ -10,6 +10,8 @@ import { ProductController } from './product/product.controller';
 import { UserRolesController } from './user-roles/user-roles.controller';
 import { ExceptionController } from './exception/exception.controller';
 import { LoggerMiddleware } from './middleware/logger/logger.middleware';
+import { DatabaseService } from './database/database.service';
+import { DatabaseController } from './database/database.controller';
 
 
 
@@ -18,8 +20,8 @@ import { LoggerMiddleware } from './middleware/logger/logger.middleware';
 
 @Module({
   imports: [ EmployeeModule, StudentModule],
-  controllers: [AppController, AdminController, ProductController, UserRolesController, ExceptionController],
-  providers: [AppService, AdminService]
+  controllers: [AppController, AdminController, ProductController, UserRolesController, ExceptionController, DatabaseController],
+  providers: [AppService, AdminService, DatabaseService]
 })
 export class AppModule implements NestModule{
   configure(consumer : MiddlewareConsumer){
