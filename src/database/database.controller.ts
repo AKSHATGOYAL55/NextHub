@@ -4,10 +4,12 @@ import { DatabaseService } from './database.service';
 @Controller('database')
 export class DatabaseController {
 
-    constructor(private DatabaseService : DatabaseService){}
+    constructor(private readonly DatabaseService : DatabaseService){}
 
     @Get("status")
     getStatus(){
-        return this.DatabaseService.getStatus()
+        return {
+            status : this.DatabaseService.getStatus()
+        }
     }
 }
