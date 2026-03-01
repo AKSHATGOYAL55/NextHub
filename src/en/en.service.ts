@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config'
 export class EnService {
     constructor( private readonly configService : ConfigService){}
 
-    getURL(){
-        return this.configService.get<string>("DATABASE_URL")
-    }
+    // getURL(){
+    //     return this.configService.get<string>("DATABASE_URL")
+    // }
 }
