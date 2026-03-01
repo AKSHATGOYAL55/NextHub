@@ -5,8 +5,8 @@ import { EnService } from './en.service';
 export class EnController {
     constructor(private readonly EnService : EnService){}
 
-    @Get()
-    getURL(){
-        return this.EnService.getURL()
-    }
+    // @Get()
+    // getURL(){
+    //     return this.EnService.getURL()
+    // }
 }
