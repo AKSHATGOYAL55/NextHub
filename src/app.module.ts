@@ -15,6 +15,8 @@ import { DatabaseService } from './database/database.service';
 import { DatabaseController } from './database/database.controller';
 import { EnService } from './en/en.service';
 import { EnController } from './en/en.controller';
+import { UserModule } from './user/user.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 
 
@@ -24,7 +26,14 @@ import { EnController } from './en/en.controller';
 @Module({
   imports: [ EmployeeModule, StudentModule, ConfigModule.forRoot({
     isGlobal: true
-  })],
+  }),
+  TypeOrmModule.forRoot({
+    type : 'postgres',
+    url : process.env.DATABASE_URL,
+    autoLoadEntities : true,
+    synchronize : true,
+  }),
+  UserModule],
   controllers: [AppController, AdminController, ProductController, UserRolesController, ExceptionController, DatabaseController, EnController],
   providers: [AppService, AdminService, DatabaseService, EnService]
 })
