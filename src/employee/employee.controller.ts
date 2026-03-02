@@ -1,0 +1,14 @@
+import { Body, Controller, Post } from '@nestjs/common';
+import { EmployeeService } from './employee.service';
+import { Employee } from './employee.entity';
+
+@Controller('employee')
+export class EmployeeController {
+
+    constructor(private readonly EmployeeService : EmployeeService){}
+
+    @Post()
+    createEmployee(@Body() body : Partial<Employee>) : Promise<Employee>{
+        return this.EmployeeService.createEmployee(body)
+    }
+}
