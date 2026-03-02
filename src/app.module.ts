@@ -18,6 +18,7 @@ import { EnController } from './en/en.controller';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomerModule } from './customer/customer.module';
+import { EmployeeModule } from './employee/employee.module';
 
 
 
@@ -35,7 +36,8 @@ import { CustomerModule } from './customer/customer.module';
     synchronize : true,
   }),
   UserModule,
-  CustomerModule],
+  CustomerModule,
+  EmployeeModule],
   controllers: [AppController, ProductController, UserRolesController, ExceptionController, DatabaseController, EnController],
   providers: [AppService, DatabaseService, EnService]
 })
