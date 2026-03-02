@@ -17,6 +17,7 @@ import { EnService } from './en/en.service';
 import { EnController } from './en/en.controller';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CustomerModule } from './customer/customer.module';
 
 
 
@@ -33,7 +34,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     autoLoadEntities : true,
     synchronize : true,
   }),
-  UserModule],
+  UserModule,
+  CustomerModule],
   controllers: [AppController, AdminController, ProductController, UserRolesController, ExceptionController, DatabaseController, EnController],
   providers: [AppService, AdminService, DatabaseService, EnService]
 })
