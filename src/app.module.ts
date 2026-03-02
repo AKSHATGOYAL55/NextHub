@@ -2,10 +2,10 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AdminController } from './admin/admin.controller';
-import { AdminService } from './admin/admin.service';
+// import { AdminController } from './admin/admin.controller';
+// import { AdminService } from './admin/admin.service';
 
-import { EmployeeModule } from './employee/employee.module';
+// import { EmployeeModule } from './employee/employee.module';
 import { StudentModule } from './student/student.module';
 import { ProductController } from './product/product.controller';
 import { UserRolesController } from './user-roles/user-roles.controller';
@@ -25,7 +25,7 @@ import { CustomerModule } from './customer/customer.module';
 
 
 @Module({
-  imports: [ EmployeeModule, StudentModule, ConfigModule.forRoot({
+  imports: [ StudentModule, ConfigModule.forRoot({
     isGlobal: true
   }),
   TypeOrmModule.forRoot({
@@ -36,8 +36,8 @@ import { CustomerModule } from './customer/customer.module';
   }),
   UserModule,
   CustomerModule],
-  controllers: [AppController, AdminController, ProductController, UserRolesController, ExceptionController, DatabaseController, EnController],
-  providers: [AppService, AdminService, DatabaseService, EnService]
+  controllers: [AppController, ProductController, UserRolesController, ExceptionController, DatabaseController, EnController],
+  providers: [AppService, DatabaseService, EnService]
 })
 export class AppModule implements NestModule{
   configure(consumer : MiddlewareConsumer){
