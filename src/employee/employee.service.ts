@@ -63,4 +63,17 @@ export class EmployeeService {
       }
     });
   }
+
+  async search(name: string | undefined, department: string | undefined, filters: { name?: string; department?: string; }) : Promise<Employee[]>{
+    const query = this.employeeRepository.createQueryBuilder('employee');
+
+    if(filters.name){
+      query.andWhere(`employee.name ILIKE :name`, {name : `%${filters.name}%`});
+    }
+    if(filters.department){
+      query.andWhere(`employee.department = :department`, {department : `${filters.department}`});
+    }
+
+    return query.getMany();
+  }
 }
