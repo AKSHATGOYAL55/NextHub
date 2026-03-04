@@ -42,6 +42,15 @@ export class EmployeeController {
     async updateEmployee2(@Param("id", ParseIntPipe) id: number , @Body() body: Partial<Employee>) : Promise<Employee>{
         return this.EmployeeService.updateEmployee2(id, body)
     }
+    // @Delete(":id")
+    // async deleteEmployee(@Param("id", ParseIntPipe) id : number): Promise<void>{
+    //     return this.EmployeeService.deleteEmployee(id)
+    // }
+
+    // @Put(":id")
+    // async updateEmployee2(@Param("id", ParseIntPipe) id: number , @Body() body: Partial<Employee>) : Promise<Employee>{
+    //     return this.EmployeeService.updateEmployee2(id, body)
+    // }
 
     
 

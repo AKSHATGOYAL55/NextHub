@@ -79,4 +79,19 @@ export class EmployeeService {
 
     return query.getMany();
   }
+  // async search(name: string | undefined, department: string | undefined, filters: { name?: string; department?: string; }) : Promise<Employee[]>{
+  //   const query = this.employeeRepository.createQueryBuilder('employee');
+
+  //   //using query builder to search employee by name and department with case insensitive and partial match for name and exact match for department.
+  //   if(filters.name){
+  //     query.andWhere(`employee.name ILIKE :name`, {name : `%${filters.name}%`});
+  //   }
+
+  //   // for department we are using exact match because in real world scenario we will have fixed set of departments and we want to search employee by department with exact match.
+  //   if(filters.department){
+  //     query.andWhere(`employee.department = :department`, {department : `${filters.department}`});
+  //   }
+
+  //   return query.getMany();
+  // }
 }
