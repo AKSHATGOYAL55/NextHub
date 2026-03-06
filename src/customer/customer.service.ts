@@ -10,9 +10,9 @@ export class CustomerService {
         private CustomerRepository : Repository <Customer>
     ){}
 
-    // async createCustomer(CustomerData : Partial<Customer>) : Promise<Customer>{
-    //     const Customer = this.CustomerRepository.create(CustomerData);
-    //     return this.CustomerRepository.save(Customer);
-    // }
+    async createCustomer(CustomerData : Partial<Customer>) : Promise<Customer>{
+        const Customer = this.CustomerRepository.create(CustomerData);
+        return this.CustomerRepository.save(Customer);
+    }
 }
  
