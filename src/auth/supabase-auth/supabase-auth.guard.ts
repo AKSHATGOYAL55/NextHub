@@ -1,84 +1,74 @@
+
+
 // import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
-// import { ConfigService } from '@nestjs/config';
+// import { ConfigService, ConfigModule } from '@nestjs/config';
 // import { Observable } from 'rxjs';
 // import * as jwt from 'jsonwebtoken';
-// import {request} from "express"
-
+// import { Request } from 'express';
 
 // @Injectable()
 // export class SupabaseAuthGuard implements CanActivate {
-//   constructor( private ConfigService : ConfigService){}
+
+//   constructor(private ConfigService : ConfigService){}
+
 //   canActivate(
 //     context: ExecutionContext,
 //   ): boolean | Promise<boolean> | Observable<boolean> {
-
 //     const request = context.switchToHttp().getRequest<Request>();
 //     const authHeader = request.headers['authorization'];
 
-//     if (!authHeader || !authHeader.startsWith('Bearer ')){
-//       throw new UnauthorizedException('no token provided')
+//     if(!authHeader || !authHeader.startsWith("Bearer ")){
+//       throw new UnauthorizedException("Authorization header is missing")
 //     }
+
 //     const token = authHeader.split(" ")[1];
-//     const jwtSecret = this.ConfigService.get<string>("SUPABASE_JWT_SECRET");
+//     const JwtSecret = this.ConfigService.get<string>("SUPABASE_JWT_SECRET");
 
-//     console.log(token);
-// console.log(jwtSecret);
-
-//     if (!jwtSecret){
-//       throw new UnauthorizedException("JWT secret not configured")
+//     if(!JwtSecret){
+//       throw new UnauthorizedException('JWT secret is not configured')
 //     }
 //     try{
-//       const decodes = jwt.verify(token, jwtSecret);
-//       request['user'] = decodes;
+//       const decoded = jwt.verify(token, JwtSecret);
+//       request['user'] = decoded;
 //       return true;
-//     } catch (error) {
-//       throw new UnauthorizedException('invalid token');
+//     }catch(err){
+//       throw new UnauthorizedException("Invalid token")
 //     }
 //   }
 // }
 
 
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { Observable } from 'rxjs';
-import * as jwt from 'jsonwebtoken';
 import { Request } from 'express';
+import { createClient } from '@supabase/supabase-js';
 
 @Injectable()
 export class SupabaseAuthGuard implements CanActivate {
 
-  constructor(private configService: ConfigService) {}
+  private supabase = createClient(
+    process.env.SUPABASE_URL!,
+    process.env.SUPABASE_ANON_KEY!
+  );
 
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
 
     const request = context.switchToHttp().getRequest<Request>();
-    const authHeader = request.headers['authorization'];
+    const authHeader = request.headers.authorization;
 
-    // console.log("AUTH HEADER:", authHeader);
-
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      throw new UnauthorizedException('No token provided');
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      throw new UnauthorizedException("Authorization header missing");
     }
 
-    const token = authHeader.split(' ')[1];
+    const token = authHeader.split(" ")[1];
 
-    const jwtSecret = this.configService.get<string>('SUPABASE_JWT_SECRET');
+    const { data, error } = await this.supabase.auth.getUser(token);
 
-    // console.log("JWT SECRET:", jwtSecret);
-
-    if (!jwtSecret) {
-      throw new UnauthorizedException('JWT secret not configured');
+    if (error || !data.user) {
+      throw new UnauthorizedException("Invalid token");
     }
 
-    try {
-      const decoded = jwt.verify(token, jwtSecret);
-      // console.log("DECODED TOKEN:", decoded);
-      request['user'] = decoded;
-      return true;
-    } catch (error) {
-      throw new UnauthorizedException('Invalid token');
-    }
+    request['user'] = data.user;
+
+    return true;
   }
 }
