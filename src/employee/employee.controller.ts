@@ -20,16 +20,19 @@ export class EmployeeController {
     // async findAll(){
     //     return this.EmployeeService.AllEmployee()
     // }
+    @UseGuards(SupabaseAuthGuard)
     @Get()
     async AllEmployee(){
         return this.EmployeeService.AllEmployee()
     }
     
+    // @UseGuards(SupabaseAuthGuard)
       @Get("search")
     async searchEmployee(@Query("name") name? : string, @Query('department') department? : string) : Promise<Employee[]>{
         return this.EmployeeService.search(name, department, { name, department })
     }
 
+    @UseGuards(SupabaseAuthGuard)
     @Get(":id")
     async EmployeeById(@Param("id", ParseIntPipe) id : number): Promise<Employee>{
         return this.EmployeeService.EmployeeById(id)
