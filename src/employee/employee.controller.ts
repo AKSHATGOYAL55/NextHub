@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { Employee } from './employee.entity';
 import { promises } from 'dns';
+import { SupabaseAuthGuard } from '../auth/supabase-auth/supabase-auth.guard';
 
 @Controller('employee')
 export class EmployeeController {
@@ -13,6 +14,12 @@ export class EmployeeController {
         return this.EmployeeService.createEmployee(body)
     }
 
+
+    // @UseGuards(SupabaseAuthGuard)
+    // @Get()
+    // async findAll(){
+    //     return this.EmployeeService.AllEmployee()
+    // }
     @Get()
     async AllEmployee(){
         return this.EmployeeService.AllEmployee()
