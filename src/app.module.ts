@@ -19,7 +19,6 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomerModule } from './customer/customer.module';
 import { EmployeeModule } from './employee/employee.module';
-// import { MongooseModule } from '@nestjs/mongoose';
 
 
 
@@ -30,7 +29,6 @@ import { EmployeeModule } from './employee/employee.module';
   imports: [ StudentModule, ConfigModule.forRoot({
     isGlobal: true
   }),
-  // MongooseModule.forRoot(process.env.MONGO_URI!),
   TypeOrmModule.forRoot({
     type : 'postgres',
     url : process.env.DATABASE_URL,
