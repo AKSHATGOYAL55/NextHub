@@ -64,6 +64,7 @@ export class EmployeeService {
     });
   }
 
+  
   async search(name: string | undefined, department: string | undefined, filters: { name?: string; department?: string; }) : Promise<Employee[]>{
     const query = this.employeeRepository.createQueryBuilder('employee');
 
